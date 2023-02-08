@@ -1,0 +1,101 @@
+{
+  "publisher": "lucabergantin",
+  "name": "bitbucket-snippets",
+  "displayName": "bitbucket-snippets",
+  "description": "",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:bitbucket-snippets.helloWorld"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "bb-snippets.viewInVisualizer",
+        "title": "Apri..."
+      },
+      {
+        "command": "bb-snippets.viewInBrowser",
+        "title": "Visualizza nel browser"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "bb-snippets-explorer",
+          "title": "Bitbucket Snippets",
+          "icon": "media/bbsnipps.svg"
+        }
+      ]
+    },
+    "views": {
+			"bb-snippets-explorer": [
+				{
+					"id": "bb-snippets-explorer",
+					"name": "Explorer",
+					"icon": "media/bbsnipps.svg",
+					"contextualTitle": "Bitbucket Snippets"
+				}
+			]
+    },
+    "menus": {
+      "view/item/context": [
+        {
+          "command": "bb-snippets.viewInVisualizer",
+          "when": "view == bb-snippets-explorer && viewItem == file"
+        },
+        {
+          "command": "bb-snippets.viewInBrowser",
+          "when": "view == bb-snippets-explorer"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Bitbucket Snippets",
+      "properties": {
+        "bbsnippets.role": {
+          "type": "string",
+          "default": "member",
+          "enum": ["owner", "contributor", "member", "workspace"],
+          "description": "Filter down the result based on the authenticated user's role"
+        },
+        "bbsnippets.workspace_name": {
+          "type": "string",
+          "default": "",
+          "description": "The name of workspace to retrieve snippets from (used only whene role is 'workspace')"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "yarn run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "yarn run compile && yarn run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.0.1",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.75.0",
+    "@typescript-eslint/eslint-plugin": "^5.49.0",
+    "@typescript-eslint/parser": "^5.49.0",
+    "@vscode/test-electron": "^2.2.2",
+    "eslint": "^8.33.0",
+    "glob": "^8.1.0",
+    "mocha": "^10.1.0",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "netrc": "^0.1.4",
+    "request": "^2.88.2"
+  }
+}
