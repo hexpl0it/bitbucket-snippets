@@ -3,8 +3,6 @@ import * as vscode from "vscode";
 import { BBSnippetsDataProvider } from "./BBSnippetsDataProvider";
 import { getSnippetFileContent } from "./apihelper";
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
   const rootPath =
     vscode.workspace.workspaceFolders &&
@@ -21,7 +19,7 @@ export function activate(context: vscode.ExtensionContext) {
     "bb-snippets.viewInVisualizer",
     async (itemCtx) => {
       var setting = vscode.Uri.parse(
-        "untitled:" + path.basename(itemCtx.selfUrl)
+        "untitled:" + rootPath + "/" + path.basename(itemCtx.selfUrl)
       );
       vscode.workspace.openTextDocument(setting).then((doc) => {
         vscode.window.showTextDocument(doc, 1, false).then((editor) => {
